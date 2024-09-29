@@ -12,6 +12,8 @@ namespace InventoryMangementSystemEntities.Models
         public decimal Price { get; set; }
         [StringLength(250)]
         public string? ProductImage { get; set; }
+        [Display(Name = "Reorder Level")]
+
         public int LowStockThreshold { get; set; } 
         public int StockQuantity { get; set; }
 
@@ -22,6 +24,8 @@ namespace InventoryMangementSystemEntities.Models
         public int supplierId { get; set; }
         public Supplier? supplier { get; set; }
         public List<StockLevel> StockLevels { get; set; }
+        [NotMapped]
+        public IFormFile? ImageFile { get; set; }
 
 
     }

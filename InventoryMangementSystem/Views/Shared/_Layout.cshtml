@@ -5,51 +5,188 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
     <title>@ViewData["Title"] - InventoryMangementSystem</title>
     <link rel="stylesheet" href="~/lib/bootstrap/dist/css/bootstrap.min.css" />
-    <link rel="stylesheet" href="~/css/site.css" asp-append-version="true" />
     <link rel="stylesheet" href="~/InventoryMangementSystem.styles.css" asp-append-version="true" />
+    <link rel="stylesheet" href="~/css/dataTables.bootstrap4.min.css">
+    <link rel="stylesheet" href="~/plugins/fontawesome/css/fontawesome.min.css">
+    <link rel="stylesheet" href="~/plugins/fontawesome/css/all.min.css">
+    <link rel="stylesheet" href="~/css/animate.css">
+    <link rel="stylesheet" href="~/css/style.css" asp-append-version="true">
+    <link rel="stylesheet" href="~/plugins/select2/css/select2.min.css">
+    <link rel="stylesheet" href="~/plugins/owlcarousel/owl.carousel.min.css">
+
 </head>
 <body>
-    <header>
-        <nav class="navbar navbar-expand-sm navbar-toggleable-sm navbar-light bg-white border-bottom box-shadow mb-3">
-            <div class="container-fluid">
-                <a class="navbar-brand" asp-area="" asp-controller="Home" asp-action="Index">InventoryMangementSystem</a>
-                <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target=".navbar-collapse" aria-controls="navbarSupportedContent"
-                        aria-expanded="false" aria-label="Toggle navigation">
-                    <span class="navbar-toggler-icon"></span>
-                </button>
-                <div class="navbar-collapse collapse d-sm-inline-flex justify-content-between">
-                    <ul class="navbar-nav flex-grow-1">
-                        <li class="nav-item">
-                            <a class="nav-link text-dark" asp-area="" asp-controller="Home" asp-action="Index">Home</a>
-                        </li>
-                        
-                            <li class="nav-item">
-                                <a class="nav-link text-dark" asp-area="" asp-controller="categories" asp-action="index">Categories</a>
-                            </li>
-                        
+    <div id="global-loader">
+        <div class="whirly-loader"> </div>
+    </div>
+    <div class="main-wrapper">
+        <div class="header">
+            <div class="header-left active">
+                <a class="logo" asp-area="" asp-controller="Home" asp-action="index">
+                    <img src="~/img/l.jpg" alt="">
+                </a>
+                <a id="toggle_btn" href="javascript:void(0);">
+                </a>
+            </div>
 
-                        <li class="nav-item">
-                            <a class="nav-link text-dark" asp-area="" asp-controller="products" asp-action="index">Products</a>
+            <a id="mobile_btn" class="mobile_btn" href="#sidebar">
+                <span class="bar-icon">
+                    <span></span>
+                    <span></span>
+                    <span></span>
+                </span>
+            </a>
+
+            <ul class="nav user-menu">
+                <li class="nav-item">
+                    <div class="top-nav-search">
+                        <a href="javascript:void(0);" class="responsive-search">
+                            <i class="fa fa-search"></i>
+                        </a>
+                        <form action="#">
+                            <div class="searchinputs">
+                                <input type="text" placeholder="Search Here ...">
+                                <div class="search-addon">
+                                    <span><img src="~/img/icons/closes.svg" alt="img"></span>
+                                </div>
+                            </div>
+                            <a class="btn" id="searchdiv"><img src="~/img/icons/search.svg" alt="img"></a>
+                        </form>
+                    </div>
+                </li>
+
+
+
+
+                <li class="nav-item dropdown">
+                    <a href="javascript:void(0);" class="dropdown-toggle nav-link" data-bs-toggle="dropdown">
+                        <img src="~/img/icons/notification-bing.svg" alt="img"> <span class="badge rounded-pill"></span>
+                    </a>
+                    <div class="dropdown-menu notifications">
+                        <div class="topnav-dropdown-header">
+                            <span class="notification-title">Notifications</span>
+                            <a href="javascript:void(0)" class="clear-noti"> Clear All </a>
+                        </div>
+                        <div class="noti-content">
+                          <ul class="notification-list">
+                          </ul>
+                        </div>
+                        <div class="topnav-dropdown-footer">
+                            <a href="activities.html">View all Notifications</a>
+                        </div>
+                    </div>
+                </li>
+
+                <li class="nav-item dropdown has-arrow main-drop">
+                    <a href="javascript:void(0);" class="dropdown-toggle nav-link userset" data-bs-toggle="dropdown">
+                        <span class="user-img">
+                            <img src="~/img/profiles/avator1.jpg" alt="">
+                            <span class="status online"></span>
+                        </span>
+                    </a>
+                    <div class="dropdown-menu menu-drop-user">
+                        <div class="profilename">
+                            <div class="profileset">
+                                <span class="user-img">
+                                    <img src="~/img/profiles/avator1.jpg" alt="">
+                                    <span class="status online"></span>
+                                </span>
+                                <div class="profilesets">
+                                    <h6>John Doe</h6>
+                                    <h5>Admin</h5>
+                                </div>
+                            </div>
+                            <hr class="m-0">
+                            <a class="dropdown-item" href="profile.html"> <i class="me-2" data-feather="user"></i> My Profile</a>
+                            <a class="dropdown-item" href="generalsettings.html"><i class="me-2" data-feather="settings"></i>Settings</a>
+                            <hr class="m-0">
+                            <a class="dropdown-item logout pb-0" href="signin.html"><img src="~/img/icons/log-out.svg" class="me-2" alt="img">Logout</a>
+                        </div>
+                    </div>
+                </li>
+            </ul>
+
+
+            <div class="dropdown mobile-user-menu">
+                <a href="javascript:void(0);" class="nav-link dropdown-toggle" data-bs-toggle="dropdown" aria-expanded="false"><i class="fa fa-ellipsis-v"></i></a>
+                <div class="dropdown-menu dropdown-menu-right">
+                    <a class="dropdown-item" href="profile.html">My Profile</a>
+                    <a class="dropdown-item" href="generalsettings.html">Settings</a>
+                    <a class="dropdown-item" href="signin.html">Logout</a>
+                </div>
+            </div>
+
+        </div>
+
+
+        <div class="sidebar" id="sidebar">
+            <div class="sidebar-inner slimscroll">
+                <div id="sidebar-menu" class="sidebar-menu">
+                    <ul>
+                        <li class="active">
+                            <a asp-area="" asp-controller="Home" asp-action="index"><img src="~/img/icons/dashboard.svg" alt="img"><span> Dashboard</span> </a>
+                        </li>
+                        <li class="submenu">
+                            <a href="javascript:void(0);"><img src="~/img/icons/product.svg" alt="img"><span> Product</span> <span class="menu-arrow"></span></a>
+                            <ul>
+                                <li><a asp-area="" asp-controller="products" asp-action="index">Product List</a></li>
+                                <li><a asp-area="" asp-controller="Products" asp-action="Create">Add Product</a></li>
+                                <li><a href="categorylist.html">Category List</a></li>
+                                <li><a href="addcategory.html">Add Category</a></li>
+                            </ul>
+                        </li>
+
+
+                        <li class="submenu">
+                            <a href="javascript:void(0);"><img src="~/img/icons/users1.svg" alt="img"><span> People</span> <span class="menu-arrow"></span></a>
+                            <ul>
+                                <li><a href="supplierlist.html">Supplier List</a></li>
+                                <li><a href="addsupplier.html">Add Supplier </a></li>
+                                <li><a href="userlist.html">User List</a></li>
+                                <li><a href="adduser.html">Add User</a></li>
+                            </ul>
+
+
+
+                        <li class="submenu">
+                            <a href="javascript:void(0);"><img src="~/img/icons/time.svg" alt="img"><span> Report</span> <span class="menu-arrow"></span></a>
+                            <ul>
+                                <li><a href="supplierreport.html">Supplier Report</a></li>
+                            </ul>
+                        </li>
+                        <li class="submenu">
+                            <a href="javascript:void(0);"><img src="~/img/icons/users1.svg" alt="img"><span> Users</span> <span class="menu-arrow"></span></a>
+                            <ul>
+                                <li><a href="newuser.html">New User </a></li>
+                                <li><a href="userlists.html">Users List</a></li>
+                            </ul>
                         </li>
                     </ul>
                 </div>
             </div>
-        </nav>
-    </header>
+        </div>
+
+        
+    </div>
     <div class="container">
-        <main role="main" class="pb-3">
+        <main role="main" class="pb-xl-5">
             @RenderBody()
         </main>
     </div>
 
-    <footer class="border-top footer text-muted">
-        <div class="container">
-            &copy; 2024 - InventoryMangementSystem - <a asp-area="" asp-controller="Home" asp-action="Privacy">Privacy</a>
-        </div>
-    </footer>
     <script src="~/lib/jquery/dist/jquery.min.js"></script>
-    <script src="~/lib/bootstrap/dist/js/bootstrap.bundle.min.js"></script>
-    <script src="~/js/site.js" asp-append-version="true"></script>
+    <script src="~/js/bootstrap.bundle.min.js"></script>
+    <script src="~/js/feather.min.js"></script>
+    <script src="~/js/jquery.slimscroll.min.js"></script>
+    <script src="~/js/jquery.dataTables.min.js"></script>
+    <script src="~/js/dataTables.bootstrap4.min.js"></script>
+    <script src="~/js/script.js" asp-append-version="true"></script>
+    <script src="~/plugins/select2/js/select2.min.js"></script>
+    <script src="~/plugins/sweetalert/sweetalert2.all.min.js"></script>
+    <script src="~/plugins/sweetalert/sweetalerts.min.js"></script>
+    <script src="~/plugins/fileupload/fileupload.min.js"></script>
+    <script src="~/plugins/owlcarousel/owl.carousel.min.js"></script>
+
     @await RenderSectionAsync("Scripts", required: false)
 </body>
 </html>

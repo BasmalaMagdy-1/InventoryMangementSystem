@@ -1,0 +1,101 @@
+﻿@model InventoryMangementSystemEntities.Models.Product
+
+@{
+    ViewData["Title"] = "Edit";
+}
+
+<div class="page-wrapper">
+        <div class="page-header">
+            <div class="page-title">
+                <h4>Product Edit</h4>
+                <h6>Update your product</h6>
+            </div>
+        </div>
+        <form asp-action="Edit" enctype="multipart/form-data">
+        <div asp-validation-summary="ModelOnly" class="text-danger"></div>
+        <div class="card">
+            <div class="card-body">
+                <div class="row">
+                    <div class="col-lg-3 col-sm-6 col-12">
+                    <div class="form-group">
+                        <label asp-for="ProductName" class="control-label"></label>
+                        <input asp-for="ProductName" class="form-control" />
+                        <span asp-validation-for="ProductName" class="text-danger"></span>
+                    </div>
+                    </div>
+                    <div class="col-lg-3 col-sm-6 col-12">
+                        <div class="form-group">
+                        <label asp-for="categoryId" class="control-label"></label>
+                        <select asp-for="categoryId" asp-items="@(new SelectList( ViewBag.categoryList, "Id", "CategoryName"))" class="form-control">
+                        </select>
+                        <span asp-validation-for="categoryId" class="text-danger"></span>
+                        </div>
+                    </div>
+                    <div class="col-lg-3 col-sm-6 col-12">
+                        <div class="form-group">
+                        <label asp-for="supplierId" class="control-label"></label>
+                        <select asp-for="supplierId" asp-items="@(new SelectList( ViewBag.supplierList, "Id", "SupplierName"))" class="form-control">
+                        </select>
+                        <span asp-validation-for="supplierId" class="text-danger"></span>
+                        </div>
+                    </div>
+          
+                    <div class="col-lg-3 col-sm-6 col-12">
+                        <div class="form-group">
+                        <label asp-for="LowStockThreshold" class="control-label">Minimum Qty</label>
+                        <input asp-for="LowStockThreshold" class="form-control" />
+                        <span asp-validation-for="LowStockThreshold" class="text-danger"></span>
+                        </div>
+                    </div>
+                    <div class="col-lg-3 col-sm-6 col-12">
+                        <div class="form-group">
+                        <label asp-for="StockQuantity" class="control-label">Quantity</label>
+                        <input asp-for="StockQuantity" class="form-control" />
+                        <span asp-validation-for="StockQuantity" class="text-danger"></span>
+                        </div>
+                    </div>
+
+                    <div class="col-lg-3 col-sm-6 col-12">
+                        <div class="form-group">
+                        <label asp-for="Price" class="control-label"></label>
+                        <input asp-for="Price" class="form-control" />
+                        <span asp-validation-for="Price" class="text-danger"></span>
+                        </div>
+                    </div>
+                    <div class="col-lg-12">
+                        <div class="form-group">
+                            <label>Product Image</label>
+                            <label asp-for="ImageFile" class="control-label"></label>
+                            <input asp-for="ImageFile" class="form-control" onchange="loadFile(event)" />
+                           </div>
+                        <div class="mt-2">
+                            <img id="output" src="@Model.ProductImage" width="30%" />
+                        </div>
+
+                   
+                    <div class="col-lg-12">
+
+                        <input type="submit" value="Update" class="btn btn-submit me-2" />
+                    <a asp-action="Index" class="btn btn-cancel">Cancel</a>
+                    </div>
+                </div>
+            </div>
+        </div>
+        </form>
+
+    </div>
+
+
+
+@section Scripts {
+    @{await Html.RenderPartialAsync("_ValidationScriptsPartial");}
+    <script>
+        var loadFile = function (event) {
+            var output = document.getElementById("output");
+            output.src = URL.createObjectURL(event.target.files[0]);
+            output.onload = function () {
+                URL.revokeObjectURL(output.src);
+            }
+        }
+    </script>
+}

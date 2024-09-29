@@ -30,22 +30,21 @@ namespace InventoryMangementSystem.Repositories
             await _db.SaveChangesAsync();
         }
 
-        public async Task<IEnumerable<T>> GetAllAsync(Expression<Func<T, bool>> expression = null, 
-            string[] inculdes = null)
+        public async Task<IEnumerable<T>> GetAllAsync(Expression<Func<T, bool>> expression = null,
+    string[] includes = null)
         {
             IQueryable<T> query = _dbSet;
-            if (inculdes != null)
+            if (includes != null)
             {
-                foreach (var inculde in inculdes)
+                foreach (var include in includes)
                 {
-                    query = query.Include(inculde).AsSplitQuery();
+                    query = query.Include(include).AsSplitQuery();
                 }
             }
-            if(expression != null)
+            if (expression != null)
             {
                 return query.Where(expression);
             }
-
 
             return await query.ToListAsync();
         }

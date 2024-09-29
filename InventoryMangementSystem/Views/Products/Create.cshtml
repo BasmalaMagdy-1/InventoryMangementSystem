@@ -1,0 +1,100 @@
+﻿@model InventoryMangementSystemEntities.Models.Product
+
+@{
+    ViewData["Title"] = "Create";
+}
+
+
+<div class="page-wrapper">
+        <div class="page-header">
+            <div class="page-title">
+                <h4>Product Add</h4>
+                <h6>Create new product</h6>
+            </div>
+        </div>
+       <form asp-action="Create" enctype="multipart/form-data">
+        <div asp-validation-summary="ModelOnly" class="text-danger"></div>
+
+        <div class="card">
+            <div class="card-body">
+                <div class="row">
+                    <div class="col-lg-3 col-sm-6 col-12">
+                        <div class="form-group">
+                            <label asp-for="ProductName" class="control-label"></label>
+                            <input asp-for="ProductName" class="form-control" />
+                            <span asp-validation-for="ProductName" class="text-danger"></span>
+                        </div>
+                    </div>
+                    <div class="col-lg-3 col-sm-6 col-12">
+                        <div class="form-group">
+                            <label asp-for="categoryId" class="control-label">@Html.DisplayNameFor(model => model.supplier.SupplierName)</label>
+                            <select asp-for="categoryId" asp-items="@(new SelectList(ViewBag.categoryList, "Id", "CategoryName"))" class="form-control">
+                                    <option value="-1">-- Select a category --</option>
+                                </select>
+                                <span asp-validation-for="categoryId" class="text-danger"></span>
+                        </div>
+                    </div>
+                    <div class="col-lg-3 col-sm-6 col-12">
+                        <div class="form-group">
+                            <label asp-for="supplierId" class="control-label">@Html.DisplayNameFor(model => model.supplier.SupplierName)</label>
+                            <select asp-for="supplierId" asp-items="@(new SelectList(ViewBag.supplierList, "Id", "SupplierName"))" class="form-control">
+                                <option value="-1">-- Select a supplier --</option>
+                            </select>
+                            <span asp-validation-for="supplierId" class="text-danger"></span>
+                        </div>
+                    </div>
+
+
+                    <div class="col-lg-3 col-sm-6 col-12">
+                        <div class="form-group">
+                            <label asp-for="LowStockThreshold" class="control-label">@Html.DisplayNameFor(model => model.LowStockThreshold)</label>
+                            <input asp-for="LowStockThreshold" class="form-control" />
+                            <span asp-validation-for="LowStockThreshold" class="text-danger"></span>
+                        </div>
+                    </div>
+                    <div class="col-lg-3 col-sm-6 col-12">
+                        <div class="form-group">
+                            <label asp-for="StockQuantity" class="control-label"></label>
+                            <input asp-for="StockQuantity" class="form-control" />
+                            <span asp-validation-for="StockQuantity" class="text-danger"></span>
+                        </div>
+                    </div>
+                    
+                   
+
+                    <div class="col-lg-3 col-sm-6 col-12">
+                        <div class="form-group">
+                            <label asp-for="Price" class="control-label"></label>
+                            <input asp-for="Price" class="form-control" />
+                            <span asp-validation-for="Price" class="text-danger"></span>
+                        </div>
+                    </div>
+                    <div class="col-lg-12">
+                        <div class="form-group">
+
+                            <div class="custom-file-container" data-upload-id="myFirstImage">
+                                <label><a href="javascript:void(0)" class="custom-file-container__image-clear" title="Clear Image"></a></label>
+                                <label class="custom-file-container__custom-file" asp-for="ImageFile">
+                                    <input type="file" class="custom-file-container__custom-file__custom-file-input" accept="image/*" asp-for="ImageFile">
+                                    <input type="hidden" name="MAX_FILE_SIZE" value="10485760" />
+                                    <span class="custom-file-container__custom-file__custom-file-control"></span>
+                                </label>
+                                <div class="custom-file-container__image-preview"></div>
+                          
+
+                            </div>
+                        </div>
+                    </div>
+
+                    <div class="col-lg-12">
+                        <input type="submit" value="Create" class="btn btn-primary" />
+                        <a asp-area="" asp-controller="Products" asp-action="index" class="btn btn-danger">Cancel</a>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </form>
+    </div>
+@section Scripts {
+    @{await Html.RenderPartialAsync("_ValidationScriptsPartial");}
+}
