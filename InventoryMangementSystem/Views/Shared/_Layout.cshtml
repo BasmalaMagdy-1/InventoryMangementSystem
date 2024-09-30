@@ -2,7 +2,7 @@
 <html lang="en">
 <head>
     <meta charset="utf-8" />
-    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0, user-scalable=0">
     <title>@ViewData["Title"] - InventoryMangementSystem</title>
     <link rel="stylesheet" href="~/lib/bootstrap/dist/css/bootstrap.min.css" />
     <link rel="stylesheet" href="~/InventoryMangementSystem.styles.css" asp-append-version="true" />
@@ -13,6 +13,7 @@
     <link rel="stylesheet" href="~/css/style.css" asp-append-version="true">
     <link rel="stylesheet" href="~/plugins/select2/css/select2.min.css">
     <link rel="stylesheet" href="~/plugins/owlcarousel/owl.carousel.min.css">
+
 
 </head>
 <body>
@@ -129,10 +130,10 @@
                         <li class="submenu">
                             <a href="javascript:void(0);"><img src="~/img/icons/product.svg" alt="img"><span> Product</span> <span class="menu-arrow"></span></a>
                             <ul>
-                                <li><a asp-area="" asp-controller="products" asp-action="index">Product List</a></li>
+                                <li><a asp-area="" asp-controller="Products" asp-action="index">Product List</a></li>
                                 <li><a asp-area="" asp-controller="Products" asp-action="Create">Add Product</a></li>
-                                <li><a href="categorylist.html">Category List</a></li>
-                                <li><a href="addcategory.html">Add Category</a></li>
+                                <li><a asp-area="" asp-controller="Categories" asp-action="index">Category List</a></li>
+                                <li><a asp-area="" asp-controller="Categories" asp-action="Create">Add Category</a></li>
                             </ul>
                         </li>
 

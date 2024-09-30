@@ -3,79 +3,101 @@
 @{
     ViewData["Title"] = "Products List";
 }
-
 <div class="page-wrapper">
-    <div class="page-header">
-        <div class="page-title">
-            <h4>Product List</h4>
-            <h6>Manage your products</h6>
+        <div class="page-header">
+            <div class="page-title">
+                <h4>Product List</h4>
+                <h6>Manage your products</h6>
+            </div>
+            <div class="page-btn">
+                <a href="addproduct.html" class="btn btn-added"><img src="~/img/icons/plus.svg" alt="img" class="me-1">Add New Product</a>
+            </div>
         </div>
-        <div class="page-btn">
-            <a class="btn btn-added" asp-area="" asp-controller="Products" asp-action="Create">><img src="~/img/icons/plus.svg" alt="img" class="me-1">Add New Product</a>
-        </div>
-    </div>
+
         <div class="card">
             <div class="card-body">
-            <div class="table-top">
-                <div class="search-set">
-                    <div class="search-path">
-                        <a class="btn btn-filter" id="filter_search">
-                            <img src="~/img/icons/filter.svg" alt="img">
-                            <span><img src="~/img/icons/closes.svg" alt="img"></span>
-                        </a>
+                <div class="table-top">
+                    <div class="search-set">
+                        <div class="search-path">
+                            <a class="btn btn-filter" id="filter_search">
+                                <img src="~/img/icons/filter.svg" alt="img">
+                                <span><img src="~/img/icons/closes.svg" alt="img"></span>
+                            </a>
+                        </div>
+                        <div class="search-input">
+                            <a class="btn btn-searchset"><img src="~/img/icons/search-white.svg" alt="img"></a>
+                        </div>
                     </div>
-                    <div class="search-input">
-                        <a class="btn btn-searchset"><img src="~/img/icons/search-white.svg" alt="img"></a>
-                    </div>
+                   
                 </div>
-            </div>
 
-            <div class="card mb-0" id="filter_inputs">
-                <div class="card-body pb-0">
-                    <div class="row">
-                        <div class="col-lg-12 col-sm-12">
-                            <div class="row">
-                                <div class="col-lg col-sm-6 col-12">
-                                    <div class="form-group">
-                                        <select class="form-control select">
-                                            <option>Choose Product</option>
+                <div class="card mb-0" id="filter_inputs">
+                    <div class="card-body pb-0">
+                        <div class="row">
+                            <div class="col-lg-12 col-sm-12">
+                                <div class="row">
+                                    <div class="col-lg col-sm-6 col-12">
+                                        <div class="form-group">
+                                            <select name ="ProductName"class="select">
+                                            <option value="">Choose Product</option>
+                                            @foreach (var product in Model)
+                                            {
+                                                <option value="@product.ProductName">@product.ProductName</option>
+                                            }
+                                            
+                                            </select>
+                                        </div>
+                                    </div>
+                                    <div class="col-lg col-sm-6 col-12">
+                                        <div class="form-group">
+                                        <select name="category" class="select">
+                                            <option value="">Choose Category</option>
+                                            @foreach (var category in Model.Select(p => p.category.CategoryName).Distinct())
+                                            {
+                                                <option value="@category">@category</option>
+                                            }
                                         </select>
+                                        </div>
+                                    </div>
+                                    
+                                    <div class="col-lg col-sm-6 col-12">
+                                        <div class="form-group">
+                                        <select name="supplier" class="select">
+                                            <option value="">Choose Supplier</option>
+                                            @foreach (var supplier in Model.Select(p => p.supplier.SupplierName).Distinct())
+                                            {
+                                                <option value="@supplier">@supplier</option>
+                                            }
+                                        </select>
+                                        </div>
+                                    </div>
+                                    <div class="col-lg col-sm-6 col-12 ">
+                                        <div class="form-group">
+                                        <input type="number" min="0" name="minPrice" placeholder="Min Price" class="form-control" />
+
+                                        </div>
+                                    </div>
+                                <div class="col-lg col-sm-6 col-12 ">
+                                    <div class="form-group">
+                                        <input type="number" name="maxPrice" placeholder="Max Price" class="form-control" />
+
                                     </div>
                                 </div>
-                                <div class="col-lg col-sm-6 col-12">
-                                    <div class="form-group">
-                                        <select class="form-control select">
-                                            <option>Choose Category</option>
-                                        </select>
-                                    </div>
-                                </div>
-                                <div class="col-lg col-sm-6 col-12">
-                                    <div class="form-group">
-                                        <select class="form-control select">
-                                            <option>Brand</option>
-                                        </select>
-                                    </div>
-                                </div>
-                                <div class="col-lg col-sm-6 col-12">
-                                    <div class="form-group">
-                                        <select class="form-control select">
-                                            <option>Price</option>
-                                        </select>
-                                    </div>
-                                </div>
-                                <div class="col-lg-1 col-sm-6 col-12">
-                                    <div class="form-group">
-                                        <a class="btn btn-filters ms-auto"><img src="~/img/icons/search-whites.svg" alt="img"></a>
+                                    <div class="col-lg-1 col-sm-6 col-12">
+                                        <div class="form-group">
+                                        <button type="submit" class="btn btn-filters ms-auto">
+                                            <img src="~/img/icons/search-whites.svg" alt="img">
+                                        </button>
+                                        </div>
                                     </div>
                                 </div>
                             </div>
                         </div>
                     </div>
                 </div>
-            </div>
 
-            <div class="table-responsive dataview">
-                    <table class="table datanew">
+                <div class="table-responsive">
+                    <table class="table  datanew">
                         <thead>
                             <tr>
                                 <th>
@@ -87,40 +109,40 @@
                                 <th>Product Name</th>
                                 <th>Category </th>
                                 <th>Supplier</th>
-                                <th>Price</th>
+                                <th>price</th>
+                                <th>MinQTy</th>
                                 <th>Qty</th>
-                                <th>Reorder Level</th>
                                 <th>Action</th>
                             </tr>
                         </thead>
-                        @foreach (var item in Model)
-						{
                         <tbody>
-                            <tr>
-                                <td>
-                                    <label class="checkboxs">
-                                        <input type="checkbox">
-                                        <span class="checkmarks"></span>
-                                    </label>
-                                </td>
-                                <td class="productimgname">
-                                    <a href="javascript:void(0);" class="product-img">
-                                        @if(item.ProductImage == null || item.ProductImage == "")
-										{
-											<img src="~/img/notfound.jpg" alt="img">
-										}
-										else
-										{
-											<img src="@item.ProductImage" alt="img">
-										}
-                                    </a>
-                                    <a href="javascript:void(0);">@item.ProductName</a>
-                                </td>
-                                <td>@item.category.CategoryName</td>
-                                <td>@item.supplier.SupplierName</td>
-                                <td>@item.Price</td>
-                                <td>@item.StockQuantity</td>
-                                <td>@item.LowStockThreshold</td>
+                            @foreach (var item in Model)
+                            {
+                                <tr>
+                                    <td>
+                                        <label class="checkboxs">
+                                            <input type="checkbox">
+                                            <span class="checkmarks"></span>
+                                        </label>
+                                    </td>
+                                    <td class="productimgname">
+                                        <a href="javascript:void(0);" class="product-img">
+                                            @if (item.ProductImage == null || item.ProductImage == "")
+                                            {
+                                                <img src="~/img/notfound.jpg" alt="img">
+                                            }
+                                            else
+                                            {
+                                                <img src="@item.ProductImage" alt="img">
+                                            }
+                                        </a>
+                                        <a href="javascript:void(0);">@item.ProductName</a>
+                                    </td>
+                                    <td>@item.category.CategoryName</td>
+                                    <td>@item.supplier.SupplierName</td>
+                                    <td>@item.Price</td>
+                                    <td>@item.LowStockThreshold</td>
+                                    <td>@item.StockQuantity</td>
                                 <td>
 
                                     <a href="@Url.Action("Details", "Products", new { id = item.Id })" class="me-3">
@@ -130,23 +152,24 @@
                                     <a href="@Url.Action("Edit", "Products", new { id = item.Id })" class="me-3">
                                         <img src="~/img/icons/edit.svg" alt="img">
                                     </a>
-                                    <a  href="@Url.Action("Delete", "Products", new { id = item.Id })">
+                                    <a href="@Url.Action("Delete", "Products", new { id = item.Id })">
                                         <img src="~/img/icons/delete.svg" alt="img">
                                     </a>
                                 </td>
-                            </tr>
+
+                                </tr>
+                            
+                            }
                         </tbody>
-                        }
                     </table>
                 </div>
-            
             </div>
-            
         </div>
-</div>
-
+    </div>
 @section Scripts {
     @{
         await Html.RenderPartialAsync("_ValidationScriptsPartial");
     }
+
+
 }

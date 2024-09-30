@@ -25,4 +25,11 @@
     <ProjectReference Include="..\InventoryMangementSystemEntities\InventoryMangementSystemEntities.csproj" />
   </ItemGroup>
 
+  <ItemGroup>
+    <Content Update="Views\Categories\Edit.cshtml">
+      <ExcludeFromSingleFile>true</ExcludeFromSingleFile>
+      <CopyToPublishDirectory>PreserveNewest</CopyToPublishDirectory>
+    </Content>
+  </ItemGroup>
+
 </Project>

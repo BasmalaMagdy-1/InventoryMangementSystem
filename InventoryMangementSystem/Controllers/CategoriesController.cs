@@ -19,7 +19,7 @@ namespace InventoryMangementSystem.Controllers
         public async Task<ActionResult> Index()
         {
             var categories = await _repository.GetAllAsync();
-            return View(categories);
+            return View("CategoriesList", categories);
         }
         // GET: CategoriesController/Details/5
         public async Task<ActionResult> Details(int id)

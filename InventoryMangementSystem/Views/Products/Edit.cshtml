@@ -65,6 +65,7 @@
                     <div class="col-lg-12">
                         <div class="form-group">
                             <label>Product Image</label>
+                            <input asp-for="ProductImage" class="form-control" hidden/>
                             <label asp-for="ImageFile" class="control-label"></label>
                             <input asp-for="ImageFile" class="form-control" onchange="loadFile(event)" />
                            </div>
@@ -79,6 +80,7 @@
                     <a asp-action="Index" class="btn btn-cancel">Cancel</a>
                     </div>
                 </div>
+            </div>
             </div>
         </div>
         </form>
