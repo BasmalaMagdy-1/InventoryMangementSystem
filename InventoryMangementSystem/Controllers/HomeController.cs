@@ -13,15 +13,16 @@ namespace InventoryMangementSystem.Controllers
             _logger = logger;
         }
 
-        public IActionResult Index()
+        public IActionResult DashBoard()
         {
+            return View();
+        }
+        public IActionResult SignInPage() {
             return View();
         }
 
-        public IActionResult Privacy()
-        {
-            return View();
-        }
+
+
 
         [ResponseCache(Duration = 0, Location = ResponseCacheLocation.None, NoStore = true)]
         public IActionResult Error()

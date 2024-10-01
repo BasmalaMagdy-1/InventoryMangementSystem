@@ -4,6 +4,7 @@ using InventoryMangementSystem.Models;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.EntityFrameworkCore.Infrastructure;
 using Microsoft.EntityFrameworkCore.Metadata;
+using Microsoft.EntityFrameworkCore.Migrations;
 using Microsoft.EntityFrameworkCore.Storage.ValueConversion;
 
 #nullable disable
@@ -11,9 +12,11 @@ using Microsoft.EntityFrameworkCore.Storage.ValueConversion;
 namespace InventoryMangementSystem.Migrations
 {
     [DbContext(typeof(MyDbContext))]
-    partial class MyDbContextModelSnapshot : ModelSnapshot
+    [Migration("20241001121447_AddUserAddress")]
+    partial class AddUserAddress
     {
-        protected override void BuildModel(ModelBuilder modelBuilder)
+        /// <inheritdoc />
+        protected override void BuildTargetModel(ModelBuilder modelBuilder)
         {
 #pragma warning disable 612, 618
             modelBuilder
@@ -89,40 +92,6 @@ namespace InventoryMangementSystem.Migrations
                         .HasFilter("[NormalizedUserName] IS NOT NULL");
 
                     b.ToTable("AspNetUsers", (string)null);
-
-                    b.HasData(
-                        new
-                        {
-                            Id = "62fe5285-fd68-4711-ae93-673787f4ac66",
-                            AccessFailedCount = 0,
-                            ConcurrencyStamp = "7df99209-fee9-4a3f-8ead-124e3ca5660f",
-                            Email = "admin@admin.com",
-                            EmailConfirmed = true,
-                            LockoutEnabled = false,
-                            NormalizedEmail = "ADMIN@ADMIN.COM",
-                            NormalizedUserName = "ADMIN",
-                            PasswordHash = "AQAAAAIAAYagAAAAEAUCLY1IyRVLYNVNCiQGROcR9znVdKdoO8bBF/h0xFcIAbcjX0lT93ZttRrlHwGSEg==",
-                            PhoneNumberConfirmed = false,
-                            SecurityStamp = "ee399526-1d52-4e4c-a5d1-40fd1c46813a",
-                            TwoFactorEnabled = false,
-                            UserName = "Admin"
-                        },
-                        new
-                        {
-                            Id = "62fe5285-fd68-4711-ae93-673787f4a111",
-                            AccessFailedCount = 0,
-                            ConcurrencyStamp = "30b4e865-abdb-4ff0-877b-2acde9c18cb5",
-                            Email = "staff@staff.com",
-                            EmailConfirmed = true,
-                            LockoutEnabled = false,
-                            NormalizedEmail = "STAFF@STAFF.COM",
-                            NormalizedUserName = "STAFF",
-                            PasswordHash = "AQAAAAIAAYagAAAAEH/qKrjO0bufqbJlV1MyRiiSlRwIILZ5jPSHf63xeB0fNaOjvMX4NDNrw/MCXDIuUg==",
-                            PhoneNumberConfirmed = false,
-                            SecurityStamp = "0d89003d-d1d5-43c2-979a-2cd968d8a6bf",
-                            TwoFactorEnabled = false,
-                            UserName = "staff"
-                        });
                 });
 
             modelBuilder.Entity("InventoryMangementSystemEntities.Models.Category", b =>
@@ -269,20 +238,6 @@ namespace InventoryMangementSystem.Migrations
                         .HasFilter("[NormalizedName] IS NOT NULL");
 
                     b.ToTable("AspNetRoles", (string)null);
-
-                    b.HasData(
-                        new
-                        {
-                            Id = "540fa4db-060f-4f1b-b60a-dd199bfe4f0b",
-                            Name = "Administrator",
-                            NormalizedName = "ADMINISTRATOR"
-                        },
-                        new
-                        {
-                            Id = "540fa4db-060f-4f1b-b60a-dd199bfe4111",
-                            Name = "Staff",
-                            NormalizedName = "STAFF"
-                        });
                 });
 
             modelBuilder.Entity("Microsoft.AspNetCore.Identity.IdentityRoleClaim<string>", b =>
@@ -370,23 +325,6 @@ namespace InventoryMangementSystem.Migrations
                     b.HasIndex("RoleId");
 
                     b.ToTable("AspNetUserRoles", (string)null);
-
-                    b.HasData(
-                        new
-                        {
-                            UserId = "62fe5285-fd68-4711-ae93-673787f4ac66",
-                            RoleId = "540fa4db-060f-4f1b-b60a-dd199bfe4f0b"
-                        },
-                        new
-                        {
-                            UserId = "62fe5285-fd68-4711-ae93-673787f4a111",
-                            RoleId = "540fa4db-060f-4f1b-b60a-dd199bfe4111"
-                        },
-                        new
-                        {
-                            UserId = "62fe5285-fd68-4711-ae93-673787f4ac66",
-                            RoleId = "540fa4db-060f-4f1b-b60a-dd199bfe4111"
-                        });
                 });
 
             modelBuilder.Entity("Microsoft.AspNetCore.Identity.IdentityUserToken<string>", b =>

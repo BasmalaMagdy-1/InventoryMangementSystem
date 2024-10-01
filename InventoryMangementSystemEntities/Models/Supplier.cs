@@ -10,12 +10,16 @@ namespace InventoryMangementSystemEntities.Models
     public class Supplier
     {
         public int Id { get; set; }
+
         [StringLength(50)]
         public string SupplierName { get; set; }
+
         [StringLength(20)]
         public string PhoneNumber { get; set; }
+
         [StringLength(150)]
         public string Email { get; set; }
-        public List<Product> Products { get; set; }
+
+        public ICollection<Product> Products { get; set; } = new List<Product>();
     }
 }

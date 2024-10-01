@@ -4,6 +4,7 @@ using InventoryMangementSystem.Models;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.EntityFrameworkCore.Infrastructure;
 using Microsoft.EntityFrameworkCore.Metadata;
+using Microsoft.EntityFrameworkCore.Migrations;
 using Microsoft.EntityFrameworkCore.Storage.ValueConversion;
 
 #nullable disable
@@ -11,9 +12,11 @@ using Microsoft.EntityFrameworkCore.Storage.ValueConversion;
 namespace InventoryMangementSystem.Migrations
 {
     [DbContext(typeof(MyDbContext))]
-    partial class MyDbContextModelSnapshot : ModelSnapshot
+    [Migration("20241001121752_SeedData")]
+    partial class SeedData
     {
-        protected override void BuildModel(ModelBuilder modelBuilder)
+        /// <inheritdoc />
+        protected override void BuildTargetModel(ModelBuilder modelBuilder)
         {
 #pragma warning disable 612, 618
             modelBuilder
@@ -95,33 +98,33 @@ namespace InventoryMangementSystem.Migrations
                         {
                             Id = "62fe5285-fd68-4711-ae93-673787f4ac66",
                             AccessFailedCount = 0,
-                            ConcurrencyStamp = "7df99209-fee9-4a3f-8ead-124e3ca5660f",
+                            ConcurrencyStamp = "daf0f168-499c-4657-8187-490ab6f2affb",
                             Email = "admin@admin.com",
                             EmailConfirmed = true,
                             LockoutEnabled = false,
                             NormalizedEmail = "ADMIN@ADMIN.COM",
-                            NormalizedUserName = "ADMIN",
-                            PasswordHash = "AQAAAAIAAYagAAAAEAUCLY1IyRVLYNVNCiQGROcR9znVdKdoO8bBF/h0xFcIAbcjX0lT93ZttRrlHwGSEg==",
+                            NormalizedUserName = "ADMIN@ADMIN.COM",
+                            PasswordHash = "AQAAAAIAAYagAAAAEGEh7mwvfs4nenrTwXzH4NUn/QirdV15V5s49ky/9cPOn2BqOrYlnZ5+FaaTehwrkA==",
                             PhoneNumberConfirmed = false,
-                            SecurityStamp = "ee399526-1d52-4e4c-a5d1-40fd1c46813a",
+                            SecurityStamp = "fe1f398a-e01b-41a7-aaa5-96ef6e935158",
                             TwoFactorEnabled = false,
-                            UserName = "Admin"
+                            UserName = "admin@admin.com"
                         },
                         new
                         {
                             Id = "62fe5285-fd68-4711-ae93-673787f4a111",
                             AccessFailedCount = 0,
-                            ConcurrencyStamp = "30b4e865-abdb-4ff0-877b-2acde9c18cb5",
+                            ConcurrencyStamp = "c80a57e9-f928-4c4f-8efa-9f9b523242ba",
                             Email = "staff@staff.com",
                             EmailConfirmed = true,
                             LockoutEnabled = false,
                             NormalizedEmail = "STAFF@STAFF.COM",
-                            NormalizedUserName = "STAFF",
-                            PasswordHash = "AQAAAAIAAYagAAAAEH/qKrjO0bufqbJlV1MyRiiSlRwIILZ5jPSHf63xeB0fNaOjvMX4NDNrw/MCXDIuUg==",
+                            NormalizedUserName = "STAFF@STAFF.COM",
+                            PasswordHash = "AQAAAAIAAYagAAAAEFKjeEXzLZ+r3YsfmxkMGF9H4ptg2bgZa/X3D1yg9NsaAmy11h1mA+IbYjtTkrk7KQ==",
                             PhoneNumberConfirmed = false,
-                            SecurityStamp = "0d89003d-d1d5-43c2-979a-2cd968d8a6bf",
+                            SecurityStamp = "9842804f-29b9-4bcf-9313-403257c64185",
                             TwoFactorEnabled = false,
-                            UserName = "staff"
+                            UserName = "staff@staff.com"
                         });
                 });
 

@@ -1,6 +1,7 @@
 using InventoryMangementSystem.Intefaces;
 using InventoryMangementSystem.Models;
 using InventoryMangementSystem.Repositories;
+using Microsoft.AspNetCore.Identity;
 using Microsoft.EntityFrameworkCore;
 
 var builder = WebApplication.CreateBuilder(args);
@@ -9,7 +10,17 @@ var builder = WebApplication.CreateBuilder(args);
 builder.Services.AddControllersWithViews();
 builder.Services.AddDbContext<MyDbContext>(options =>
     options.UseSqlServer(builder.Configuration.GetConnectionString("Default")));
-
+builder.Services.AddIdentity<AppUser, IdentityRole>(
+    opt =>
+    {
+        opt.Password.RequiredLength = 3;
+        opt.Password.RequiredUniqueChars = 0;
+        opt.Password.RequireNonAlphanumeric = false;
+        opt.Password.RequireDigit = false;
+        opt.Password.RequireLowercase = false;
+        opt.Password.RequireUppercase = false;
+    }
+    ).AddEntityFrameworkStores<MyDbContext>().AddDefaultTokenProviders();
 builder.Services.AddScoped(typeof(IGenericRepository<>), typeof(GenericRepository<>));
 builder.Services.AddScoped<IUploudFile, UploadFile>();
 var app = builder.Build(); 
@@ -32,6 +43,6 @@ app.UseAuthorization();
 
 app.MapControllerRoute(
     name: "default",
-    pattern: "{controller=Home}/{action=Index}/{id?}");
+    pattern: "{controller=Home}/{action=SignInPage}/{id?}");
 
 app.Run();

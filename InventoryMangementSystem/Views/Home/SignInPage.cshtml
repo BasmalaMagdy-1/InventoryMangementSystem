@@ -1,0 +1,28 @@
+﻿@inject UserManager<AppUser> _userManager;
+@inject SignInManager<AppUser> _signInManager;
+
+
+@if (_signInManager.IsSignedIn(User))
+
+{
+
+    <script>
+        // Redirect to Login page on page load
+        window.onload = function() {
+            window.location.href = "@Url.Action("DashBoard", "Home")";
+        };
+    </script>
+
+}
+
+else
+
+{
+
+    <script>
+        window.onload = function () {
+            window.location.href = "@Url.Action("Login", "Account")";
+        };
+    </script>
+}
+

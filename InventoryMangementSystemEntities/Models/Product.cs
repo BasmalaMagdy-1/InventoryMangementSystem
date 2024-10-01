@@ -23,7 +23,7 @@ namespace InventoryMangementSystemEntities.Models
         [ForeignKey(nameof(supplier))]
         public int supplierId { get; set; }
         public Supplier? supplier { get; set; }
-        public List<StockLevel> StockLevels { get; set; }
+        public List<StockLevel> StockLevels { get; set; } = new List<StockLevel>();
         [NotMapped]
         public IFormFile? ImageFile { get; set; }
 

@@ -1,0 +1,72 @@
+﻿@using InventoryMangementSystemEntities.ViewModels.Account
+@model RegisterViewModel
+
+@{
+    ViewData["Title"] = "Register ";
+    Layout = "_AccountLayout";
+}
+ 
+            <form asp-action="Register" method="post">
+                        <div asp-validation-summary="ModelOnly" class="text-danger"></div>
+
+    <div class="login-userheading">
+        <h3>Create an Account</h3>
+        <h4>Continue where you left off</h4>
+    </div>
+                    <div class="form-login">
+                            
+                            <label asp-for="UserName" class="control-label"></label>
+                            <span asp-validation-for="UserName" class="text-danger"></span>
+                        <div class="form-addons">
+                                <input type="text" asp-for="UserName" class="form-control" placeholder="Enter username" />
+                            <img src="~/img/icons/users1.svg" alt="img">
+                        </div>
+                    </div>
+                    <div class="form-login">
+                          
+                            <label asp-for="Email" class="control-label"></label>
+                            <span asp-validation-for="Email" class="text-danger"></span>
+                        <div class="form-addons">
+                                <input type="text" asp-for="Email" class="form-control" placeholder="Enter your Email address" />
+                            <img src="~/img/icons/mail.svg" alt="img">
+                        </div>
+                    </div>
+                    <div class="form-login">
+
+        <label asp-for="Password" class="control-label">
+            Password
+        </label>
+                            <span asp-validation-for="Password" class="text-danger"></span>
+                        <div class="pass-group">
+            <input type="password" asp-for="Password" class="pass-input" placeholder="Enter Password" />
+            <span class="fas toggle-password fa-eye-slash"></span>
+
+                        </div>
+                    </div>
+                        <div class="form-login">
+
+        <label asp-for="ConfirmPassword" class="control-label">
+            Confirm Password
+        </label>
+                            <span asp-validation-for="ConfirmPassword" class="text-danger"></span>
+                            <div class="pass-group">
+            <input type="password" asp-for="ConfirmPassword" class="pass-input" placeholder="Confirm Password" />
+            <span class="fas toggle-password fa-eye-slash"></span>
+        </div>
+                                
+                            </div>
+                    <div class="form-login">
+                         <button type="submit" class="btn btn-login">Sign Up</button>
+                    </div>
+                    <div class="signinform text-center">
+        <h4>Already a user? <a a asp-area="" asp-controller="Account" asp-action="Login" class="hover-a">Sign In</a></h4>
+                    </div>
+               </form>
+
+                   
+
+@section Scripts {
+    @{
+        await Html.RenderPartialAsync("_ValidationScriptsPartial");
+    }
+}

@@ -10,11 +10,15 @@ namespace InventoryMangementSystemEntities.Models
     public class StockLevel
     {
         public int Id { get; set; }
-        [ForeignKey(nameof(product))]
-        public int productId { get; set; }
-        public Product? product { get; set; }
+
+        [ForeignKey(nameof(Product))]
+        public int ProductId { get; set; }
+        public Product? Product { get; set; }
+
         public int QuantityChange { get; set; }
-        public DateTime changeDate { get; set; }
-        public string changeType { get; set; }
+
+        public DateTime ChangeDate { get; set; }
+
+        public string ChangeType { get; set; }
     }
 }
