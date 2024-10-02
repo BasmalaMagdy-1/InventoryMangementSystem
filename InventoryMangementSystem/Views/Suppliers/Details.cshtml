@@ -1,14 +1,14 @@
-﻿@model InventoryMangementSystemEntities.Models.Category
+﻿@model InventoryMangementSystemEntities.Models.Supplier
 
 @{
-    ViewData["Title"] = "Category-Details";
+    ViewData["Title"] = "Supplier-Details";
 }
 
 <div class="page-wrapper">
         <div class="page-header">
             <div class="page-title">
-                <h4>Category Details</h4>
-                <h6>Full details of a Category</h6>
+            <h4>Supplier Details</h4>
+            <h6>Full details of a Supplier</h6>
             </div>
         </div>
 
@@ -19,16 +19,21 @@
                         <div class="productdetails">
                             <ul class="product-bar">
                             <li>
-                                <h4>ID</h4>
-                                <h6>@Model.Id</h6>
+                                <h4>Name</h4>
+                                <h6>@Model.SupplierName</h6>
                             </li>
                                 <li>
-                                    <h4>Name</h4>
-                                    <h6>@Model.CategoryName</h6>
+                                <h4>Email</h4>
+                                    <h6>@Model.Email</h6>
                                 </li>
                             <li>
-                                <h4>Description</h4>
-                                <h6>@Model.CategoryDescription</h6>
+                                <h4>PhoneNumber</h4>
+                                <h6>@Model.PhoneNumber</h6>
+                            </li>
+
+                            <li>
+                                <h4>Address</h4>
+                                <h6>@Model.Address</h6>
                             </li>
                             </ul>
                         </div>
@@ -37,7 +42,7 @@
             </div>
             
         <div class="col-lg-12">
-            <a href="@Url.Action("Edit", "Categories", new { id = Model.Id })" class="btn btn-primary">
+            <a href="@Url.Action("Edit", "Suppliers", new { id = Model.Id })" class="btn btn-primary">
 Edit            </a>  
             <a asp-action="Index" class="btn btn-secondary">Back to List</a>
             

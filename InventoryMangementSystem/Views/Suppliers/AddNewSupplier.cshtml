@@ -1,0 +1,74 @@
+﻿@model InventoryMangementSystemEntities.Models.Supplier
+
+@{
+    ViewData["Title"] = "AddNewSupplier";
+}
+
+
+<div class="page-wrapper">
+        <div class="page-header">
+            <div class="page-title">
+                <h4>Supplier Management</h4>
+                <h6>Add/Update Customer</h6>
+            </div>
+        </div>
+
+        <div class="card">
+            <div class="card-body">
+                <div class="row">
+                     <form asp-action="Create">
+            <div asp-validation-summary="ModelOnly" class="text-danger"></div>
+       
+                    <div class="col-lg-3 col-sm-6 col-12">
+                        <div class="form-group">
+                            <label asp-for="SupplierName" class="control-label">SupplierName</label>
+                            <input type="text" asp-for="SupplierName" class="form-control" />
+                            <span asp-validation-for="SupplierName" class="text-danger"></span>
+                        </div>
+                    </div>
+                    <div class="col-lg-3 col-sm-6 col-12">
+                        <div class="form-group">
+                                <label asp-for="Email" class="control-label">Email</label>
+                                <input type ="email" asp-for="Email" class="form-control" />
+                                <span asp-validation-for="Email" class="text-danger"></span>
+                        </div>
+                    </div>
+                    <div class="col-lg-3 col-sm-6 col-12">
+                        <div class="form-group">
+
+                                <label asp-for="PhoneNumber" class="control-label">PhoneNumber</label>
+                                <input asp-for="PhoneNumber" class="form-control" />
+                                <span asp-validation-for="PhoneNumber" class="text-danger"></span>
+                            </div>
+                    </div>
+                    <div class="col-lg-9 col-12">
+                        <div class="form-group">
+                            <label asp-for="Address" class="control-label">Address</label>
+                                <input type="text" asp-for="Address" class="form-control" />
+                                <span asp-validation-for="Address" class="text-danger"></span>
+                        </div>
+                    </div>
+                    <div class="col-lg-9 col-12">
+                        @if (ViewBag.ExistsError != null)
+                        {
+                            <h3 class="alert alert-danger">@ViewBag.ExistsError</h3>
+                        }
+                    </div>
+
+                   
+
+                    <div class="col-lg-12">
+                            <input type="submit" value="Create" class="btn btn-submit me-2"/>
+                            <a asp-area="" asp-controller="Suppliers" asp-action="index" class="btn btn-cancel">Cancel</a>
+                    </div>
+                    </form>
+                </div>
+
+            </div>
+        </div>
+
+    </div>
+
+@section Scripts {
+    @{await Html.RenderPartialAsync("_ValidationScriptsPartial");}
+}

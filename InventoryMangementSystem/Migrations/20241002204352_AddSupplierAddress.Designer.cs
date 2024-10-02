@@ -4,6 +4,7 @@ using InventoryMangementSystem.Models;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.EntityFrameworkCore.Infrastructure;
 using Microsoft.EntityFrameworkCore.Metadata;
+using Microsoft.EntityFrameworkCore.Migrations;
 using Microsoft.EntityFrameworkCore.Storage.ValueConversion;
 
 #nullable disable
@@ -11,9 +12,11 @@ using Microsoft.EntityFrameworkCore.Storage.ValueConversion;
 namespace InventoryMangementSystem.Migrations
 {
     [DbContext(typeof(MyDbContext))]
-    partial class MyDbContextModelSnapshot : ModelSnapshot
+    [Migration("20241002204352_AddSupplierAddress")]
+    partial class AddSupplierAddress
     {
-        protected override void BuildModel(ModelBuilder modelBuilder)
+        /// <inheritdoc />
+        protected override void BuildTargetModel(ModelBuilder modelBuilder)
         {
 #pragma warning disable 612, 618
             modelBuilder
@@ -95,15 +98,15 @@ namespace InventoryMangementSystem.Migrations
                         {
                             Id = "62fe5285-fd68-4711-ae93-673787f4ac66",
                             AccessFailedCount = 0,
-                            ConcurrencyStamp = "3b7ad8b6-f40a-4cc9-9fc4-5c32fda24ff8",
+                            ConcurrencyStamp = "35823b4a-2fc2-4e0d-ae82-6712f2ecc19c",
                             Email = "admin@admin.com",
                             EmailConfirmed = true,
                             LockoutEnabled = false,
                             NormalizedEmail = "ADMIN@ADMIN.COM",
                             NormalizedUserName = "ADMIN",
-                            PasswordHash = "AQAAAAIAAYagAAAAEKPI6LeJ4l3mf+z9OJFt8aKVBCFFdIhpnfznVtEHHH3w7GVVx1KL4/GvnlRVAB4iwA==",
+                            PasswordHash = "AQAAAAIAAYagAAAAEE0sxNum5mcR75bbWBL0O4UxyTpnSS92W+LXgyln92evA8RGigH/u7QqiWrjAqJWGg==",
                             PhoneNumberConfirmed = false,
-                            SecurityStamp = "8350f6af-b5fb-49d9-af7f-8a4245e04490",
+                            SecurityStamp = "d78a85bc-10e7-4e9d-8548-f1269ba1834c",
                             TwoFactorEnabled = false,
                             UserName = "Admin"
                         },
@@ -111,15 +114,15 @@ namespace InventoryMangementSystem.Migrations
                         {
                             Id = "62fe5285-fd68-4711-ae93-673787f4a111",
                             AccessFailedCount = 0,
-                            ConcurrencyStamp = "df93bcba-9481-4e7c-a658-319566ff402f",
+                            ConcurrencyStamp = "5213e784-4062-43e4-bbc9-c3017da48e48",
                             Email = "staff@staff.com",
                             EmailConfirmed = true,
                             LockoutEnabled = false,
                             NormalizedEmail = "STAFF@STAFF.COM",
                             NormalizedUserName = "STAFF",
-                            PasswordHash = "AQAAAAIAAYagAAAAEFPDQifG1gMNi2JXrLH6gKfaiRDy59q4UTCgTAV90ehwqM2tZvn1nWx4eBDMRWGy0g==",
+                            PasswordHash = "AQAAAAIAAYagAAAAEOL2ufNEPhQnWcDEzGADuZLdgpfRjN0AlXZj9lp9TkJlQpQNe0n2FV1LkgOOe1IvmQ==",
                             PhoneNumberConfirmed = false,
-                            SecurityStamp = "48827c2f-e34d-4ed6-99bd-305c046a0397",
+                            SecurityStamp = "5f7054a5-fe4c-4390-8e8d-9c1c17180f32",
                             TwoFactorEnabled = false,
                             UserName = "staff"
                         });
@@ -225,7 +228,6 @@ namespace InventoryMangementSystem.Migrations
                     SqlServerPropertyBuilderExtensions.UseIdentityColumn(b.Property<int>("Id"));
 
                     b.Property<string>("Address")
-                        .IsRequired()
                         .HasMaxLength(50)
                         .HasColumnType("nvarchar(50)");
 

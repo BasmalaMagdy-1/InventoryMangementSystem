@@ -118,7 +118,7 @@
                 <div id="sidebar-menu" class="sidebar-menu">
                     <ul>
                         <li class="active">
-                            <a asp-area="" asp-controller="Home" asp-action="index"><img src="~/img/icons/dashboard.svg" alt="img"><span> Dashboard</span> </a>
+                            <a asp-area="" asp-controller="Home" asp-action="DashBoard"><img src="~/img/icons/dashboard.svg" alt="img"><span> Dashboard</span> </a>
                         </li>
                         <li class="submenu">
                             <a href="javascript:void(0);"><img src="~/img/icons/product.svg" alt="img"><span> Product</span> <span class="menu-arrow"></span></a>
@@ -134,8 +134,8 @@
                         <li class="submenu">
                             <a href="javascript:void(0);"><img src="~/img/icons/users1.svg" alt="img"><span> People</span> <span class="menu-arrow"></span></a>
                             <ul>
-                                <li><a href="supplierlist.html">Supplier List</a></li>
-                                <li><a href="addsupplier.html">Add Supplier </a></li>
+                                <li><a asp-area="" asp-controller="Suppliers" asp-action="index">Supplier List</a></li>
+                                <li><a asp-area="" asp-controller="Suppliers" asp-action="Create">Add Supplier </a></li>
                                 <li><a href="userlist.html">User List</a></li>
                                 <li><a href="adduser.html">Add User</a></li>
                             </ul>

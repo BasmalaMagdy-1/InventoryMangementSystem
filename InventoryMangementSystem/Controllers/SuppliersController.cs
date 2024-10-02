@@ -2,6 +2,7 @@
 using InventoryMangementSystemEntities.Models;
 using Microsoft.AspNetCore.Http;
 using Microsoft.AspNetCore.Mvc;
+using NuGet.Protocol.Core.Types;
 
 namespace InventoryMangementSystem.Controllers
 {
@@ -14,51 +15,66 @@ namespace InventoryMangementSystem.Controllers
         }
 
         // GET: SuppliersController
-        public ActionResult Index()
+        public async Task<ActionResult> Index()
         {
-            return View();
+            var suppliers = await _SupplierRepository.GetAllAsync();
+            return View("SuppliersList", suppliers);
         }
 
         // GET: SuppliersController/Details/5
-        public ActionResult Details(int id)
+        public async Task<ActionResult> Details(int id)
         {
-            return View();
+            var supplier = await _SupplierRepository.GetByIdAsync(id);
+            return View(supplier);
         }
 
         // GET: SuppliersController/Create
         public ActionResult Create()
         {
-            return View();
+            return View("AddNewSupplier");
         }
 
         // POST: SuppliersController/Create
         [HttpPost]
         [ValidateAntiForgeryToken]
-        public ActionResult Create(IFormCollection collection)
+        public async Task<ActionResult> Create(Supplier item)
         {
             try
             {
+                var Isexists = _SupplierRepository.GetAllAsync().Result.Any(s => s.SupplierName == item.SupplierName);
+                if (Isexists == true)
+                {
+                    ViewBag.ExistsError = "Supplier Already exists";
+                    return View("AddNewSupplier");
+                }
+                await _SupplierRepository.AddAsync(item);
                 return RedirectToAction(nameof(Index));
             }
             catch
             {
-                return View();
+                return View("AddNewSupplier");
             }
+
         }
 
         // GET: SuppliersController/Edit/5
-        public ActionResult Edit(int id)
+        public async Task<ActionResult> Edit(int id)
         {
-            return View();
+            var supplier = await _SupplierRepository.GetByIdAsync(id);
+            return View(supplier);
         }
+
+
 
         // POST: SuppliersController/Edit/5
         [HttpPost]
         [ValidateAntiForgeryToken]
-        public ActionResult Edit(int id, IFormCollection collection)
+        public async Task<ActionResult> Edit(int id, Supplier item)
         {
             try
             {
+
+                await _SupplierRepository.UpdateAsync(item);
                 return RedirectToAction(nameof(Index));
             }
             catch
@@ -67,25 +83,29 @@ namespace InventoryMangementSystem.Controllers
             }
         }
 
-        // GET: SuppliersController/Delete/5
-        public ActionResult Delete(int id)
+
+        // GET: CategoriesController/Delete/5
+        public async Task<ActionResult> Delete(int id)
         {
-            return View();
+            var supplier = await _SupplierRepository.GetByIdAsync(id);
+            return View(supplier);
         }
 
-        // POST: SuppliersController/Delete/5
+        // POST: CategoriesController/Delete/5
         [HttpPost]
         [ValidateAntiForgeryToken]
-        public ActionResult Delete(int id, IFormCollection collection)
-        {
+         public async Task<ActionResult> Delete(int id, IFormCollection collection)
+            {
             try
             {
+                await _SupplierRepository.DeleteAsync(id);
                 return RedirectToAction(nameof(Index));
             }
             catch
             {
                 return View();
             }
-        }
+             }
+
     }
 }

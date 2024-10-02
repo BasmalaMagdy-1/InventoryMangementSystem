@@ -19,7 +19,8 @@ namespace InventoryMangementSystemEntities.Models
 
         [StringLength(150)]
         public string Email { get; set; }
-
+        [StringLength (50)]
+        public string Address {  get; set; }
         public ICollection<Product> Products { get; set; } = new List<Product>();
     }
 }
