@@ -1,0 +1,53 @@
+﻿@model IEnumerable<InventoryMangementSystemEntities.Models.Product>
+
+    @foreach (var item in Model)
+    {
+        <tr>
+            <td>
+                <label class="checkboxs">
+                    <input type="checkbox">
+                    <span class="checkmarks"></span>
+                </label>
+            </td>
+            <td class="productimgname">
+                <a href="javascript:void(0);" class="product-img">
+                    @if (item.ProductImage == null || item.ProductImage == "")
+                    {
+                        <img src="~/img/notfound.jpg" alt="img">
+                    }
+                    else
+                    {
+                        <img src="@item.ProductImage" alt="img">
+                    }
+                </a>
+                <a href="javascript:void(0);">@item.ProductName</a>
+            </td>
+            <td>@item.category.CategoryName</td>
+            <td>@item.supplier.SupplierName</td>
+            <td>@item.Price</td>
+            <td>@item.LowStockThreshold</td>
+            @if (item.StockQuantity == 0)
+            {
+                <td style="color: red;">@item.StockQuantity (Out Of Stock)</td>
+            }
+            else if (item.StockQuantity <= item.LowStockThreshold)
+            {
+                <td style="color: orange;">@item.StockQuantity</td>
+            }
+            else
+            {
+                <td style="color: green;">@item.StockQuantity</td>
+            }
+            <td>
+                <a href="@Url.Action("Details", "Products", new { id = item.Id })" class="me-3">
+                    <img src="~/img/icons/eye.svg" alt="Details" />
+                </a>
+                <a href="@Url.Action("Edit", "Products", new { id = item.Id })" class="me-3">
+                    <img src="~/img/icons/edit.svg" alt="img">
+                </a>
+                <a href="@Url.Action("Delete", "Products", new { id = item.Id })">
+                    <img src="~/img/icons/delete.svg" alt="img">
+                </a>
+            </td>
+        </tr>
+    }

@@ -25,35 +25,42 @@ namespace InventoryMangementSystem.Controllers
             _SupplierRepository = supplierRepository;
         }
         // GET: ProductsController
-        public async Task<ActionResult> Index(string search)
+        public async Task<ActionResult> Index()
         {
-            IEnumerable<Product> products;
-            if (string.IsNullOrEmpty(search))
+            var products = await _ProductRepository.GetAllAsync(inculdes: new[] { "category", "supplier" });
+
+         
+
+            return View("ProductsList", products);
+        }
+        public async Task<ActionResult> Filter(string filter)
+        {
+            IEnumerable<Product> products = new List<Product>();
+            if (string.IsNullOrEmpty(filter))
             {
-                products = await _ProductRepository.GetAllAsync(inculdes: new[] { "supplier","category" });
+                products = await _ProductRepository.GetAllAsync(inculdes: new[] { "category", "supplier" });
             }
             else
             {
-                ViewBag.Search = search;
-                products = await _ProductRepository.GetAllAsync(p=> p.ProductName.Contains(search) ,inculdes: new[] { "category","supplier" });
+                ViewBag.filter = filter;
+                
+                    if (filter == "low")
+                    {
+                    products = await _ProductRepository.GetAllAsync(p => p.StockQuantity <= p.LowStockThreshold && p.StockQuantity >0, inculdes: new[] { "category", "supplier" });
+                    }
+                    else if (filter == "out")
+                    {
+                    products = await _ProductRepository.GetAllAsync(p => p.StockQuantity == 0, inculdes: new[] { "category", "supplier" });
+                    }
+                else
+                {
+                    products = await _ProductRepository.GetAllAsync(inculdes: new[] { "category", "supplier" });
+                }
+             
             }
-            
-            return View("ProductsList",products);
+           return PartialView("_ProductsCards",products);
         }
-        public async Task<ActionResult> SearchWithAjax(string search)
-        {
-            IEnumerable<Product> products;
-            if (string.IsNullOrEmpty(search))
-            {
-                products = await _ProductRepository.GetAllAsync(inculdes: new[] { "category" });
-            }
-            else
-            {
-                ViewBag.Search = search;
-                products = await _ProductRepository.GetAllAsync(p => p.ProductName.Contains(search), inculdes: new[] { "category" });
-            }
-            return PartialView("_ProductsCards", products);
-        }
+
 
         // GET: ProductsController/Details/5
         public async Task<ActionResult> Details(int id)
@@ -150,5 +157,8 @@ namespace InventoryMangementSystem.Controllers
                 return View();
             }
         }
-    }
+    
+        
+
+}
 }
