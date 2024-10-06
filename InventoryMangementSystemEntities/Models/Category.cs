@@ -1,4 +1,5 @@
-﻿using System.ComponentModel.DataAnnotations;
+﻿using System;
+using System.ComponentModel.DataAnnotations;
 
 namespace InventoryMangementSystemEntities.Models
 {
@@ -18,5 +19,8 @@ namespace InventoryMangementSystemEntities.Models
 
         public ICollection<Product> Products { get; set; } = new List<Product>();
 
+        public DateTime CreatedDate { get; set; } = DateTime.Now;
+        [StringLength(100)]
+        public string CreatedBy { get; set; }  
     }
 }

@@ -36,7 +36,7 @@ namespace InventoryMangementSystem.Controllers
                 {
                     await _userManager.AddToRoleAsync(newuse, "Staff");
                     await _signInManager.SignInAsync(newuse, false);
-                    return RedirectToAction("DashBoard", "Home");
+                    return RedirectToAction("Index", "DashBoard");
                 }
                 else
                 {
@@ -77,7 +77,8 @@ namespace InventoryMangementSystem.Controllers
                 {
                     if (string.IsNullOrEmpty(ReturnUrl))
                     {
-                        return RedirectToAction("DashBoard", "Home");
+                        
+                        return RedirectToAction("Index", "DashBoard");
                     }
                    return Redirect(ReturnUrl);
                 }

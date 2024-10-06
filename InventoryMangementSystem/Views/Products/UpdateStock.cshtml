@@ -1,0 +1,101 @@
+﻿
+@{
+    ViewData["Title"] = "Update-Stock";
+}
+
+<div class="page-wrapper">
+    <div class="container">
+        <div class="page-header">
+            <div class="page-title">
+                <h4>Update Stock</h4>
+            </div>
+        </div>
+        <form asp-action="UpdateStock" enctype="multipart/form-data">
+            <div asp-validation-summary="ModelOnly" class="text-danger"></div>
+            <div class="card">
+                <div class="card-body">
+                    <div class="row">
+                        <div class="col-lg-3 col-sm-6 col-12">
+                            <div class="form-group">
+                                <label for="ProductSelect" class="control-label">Select Product</label>
+                                <select id="ProductSelect" name="id" class="form-control" onchange="loadProductInfo()">
+                                    <option value="">Select a product</option>
+                                    @foreach (var product in ViewBag.ProductList)
+                                    {
+                                        <option value="@product.Id" data-product='@Html.Raw(Json.Serialize(product))'>@product.ProductName</option>
+                                    }
+                                </select>
+                            </div>
+                        </div>
+                        <div class="col-lg-3 col-sm-6 col-12">
+                            <div class="form-group">
+                                <label  class="control-label">Product ID</label>
+                                <input id="Id" class="form-control" readonly />
+                            </div>
+                        </div>
+                        <div class="col-lg-3 col-sm-6 col-12">
+                            <div class="form-group">
+                                <label class="control-label">StockQuantity</label>
+                                <input id="StockQuantity" class="form-control" readonly />
+                            </div>
+                        </div>
+                        <div class="col-lg-3 col-sm-6 col-12">
+                            <div class="form-group">
+                                <label class="control-label">LowStockThreshold</label>
+                                <input id="LowStockThreshold" class="form-control" readonly />
+                            </div>
+                        </div>
+                       
+                        <div class="col-lg-3 col-sm-6 col-12">
+                            <div class="form-group">
+                                <label for="QuantityChange" class="control-label">Add/Remove Quantity</label>
+                                <input id="QuantityChange" min="0" name="quantity" class="form-control" type="number" />
+                            </div>
+                        </div>
+                        <div class="col-lg-3 col-sm-6 col-12">
+                            <div class="form-group">
+                                <label for="ChangeType" class="control-label">Change Type</label>
+                                <select id="ChangeType" name="type" class="form-control">
+                                    <option value="add">Add</option>
+                                    <option value="remove">Remove</option>
+                                </select>
+                            </div>
+                        </div>
+                        <div class="mt-2">
+                            <img id="output"  width="30%" />
+                        </div>
+                        <div class="col-lg-12">
+                            <input type="submit" value="Update" class="btn btn-submit me-2" />
+                            <a asp-action="Index" class="btn btn-cancel">Cancel</a>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </form>
+    </div>
+</div>
+
+@section Scripts {
+    @{
+        await Html.RenderPartialAsync("_ValidationScriptsPartial");
+    }
+    <script>
+        var loadFile = function (event) {
+            var output = document.getElementById("output");
+            output.src = URL.createObjectURL(event.target.files[0]);
+            output.onload = function () {
+                URL.revokeObjectURL(output.src);
+            }
+        }
+
+        function loadProductInfo() {
+            var select = document.getElementById("ProductSelect");
+            var selectedOption = select.options[select.selectedIndex];
+            var product = JSON.parse(selectedOption.getAttribute("data-product"));
+            document.getElementById("Id").value = product.id;
+            document.getElementById("LowStockThreshold").value = product.lowStockThreshold;
+            document.getElementById("StockQuantity").value = product.stockQuantity;
+            document.getElementById("output").src = product.productImage;
+        }
+    </script>
+}

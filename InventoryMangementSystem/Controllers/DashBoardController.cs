@@ -27,24 +27,28 @@ namespace InventoryMangementSystem.Controllers
         public async Task<ActionResult> Index()
         {
 
-            var lowStockProducts = await _ProductRepository.GetAllAsync(p => p.StockQuantity <= p.LowStockThreshold);
-            var totalProducts = await _ProductRepository.GetAllAsync();
+            var lowStockProducts = await _ProductRepository.GetAllAsync(p => p.StockQuantity <= p.LowStockThreshold && p.StockQuantity > 0);
+            var totalProducts = await _ProductRepository.GetAllAsync(inculdes: new[] { "category"});
             var totalSuppliers = await _SupplierRepository.GetAllAsync();
-            var totalCategories = await _CategoryRepository.GetAllAsync();
-
-
+            var outOfStockProducts = await _ProductRepository.GetAllAsync(p => p.StockQuantity == 0);
+            var recentlyAdded = await _ProductRepository.GetAllAsync(inculdes: new[] { "category" });
+            recentlyAdded = recentlyAdded.OrderByDescending(p => p.CreatedDate).Take(4);
 
 
             var dashboardViewModel = new DashboardViewModel
             {
 
-                TotalProducts = totalProducts.Count(),
-                TotalLowStockProducts = lowStockProducts.Count(),
+                ProductsStockLevels = totalProducts,
+                LowStockProducts = lowStockProducts.Count(),
                 TotalSuppliers = totalSuppliers.Count(),
-                TotalCategories = totalCategories.Count()
+                outOfStockProducts = outOfStockProducts.Count(),
+                RecentlyAddedProducts = recentlyAdded
+
             };
             return View("DashBoard",dashboardViewModel);
         }
+       
+
 
     }
 }

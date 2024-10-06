@@ -1,5 +1,6 @@
 ﻿using System;
 using System.Collections.Generic;
+using System.ComponentModel.DataAnnotations;
 using System.ComponentModel.DataAnnotations.Schema;
 using System.Linq;
 using System.Text;
@@ -18,6 +19,7 @@ namespace InventoryMangementSystemEntities.Models
         public int QuantityChange { get; set; }
 
         public DateTime ChangeDate { get; set; }
+        [StringLength(20)]
 
         public string ChangeType { get; set; }
     }

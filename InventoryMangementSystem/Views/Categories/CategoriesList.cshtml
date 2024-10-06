@@ -23,53 +23,14 @@
             <div class="card-body">
                 <div class="table-top">
                     <div class="search-set">
-                        <div class="search-path">
-                            <a class="btn btn-filter" id="filter_search">
-                                <img src="~/img/icons/filter.svg" alt="img">
-                                <span><img src="~/img/icons/closes.svg" alt="img"></span>
-                            </a>
-                        </div>
+                      
                         <div class="search-input">
                             <a class="btn btn-searchset"><img src="~/img/icons/search-white.svg" alt="img"></a>
                         </div>
                     </div>
                 </div>
 
-                <div class="card" id="filter_inputs">
-                    <div class="card-body pb-0">
-                        <div class="row">
-                            <div class="col-lg-2 col-sm-6 col-12">
-                                <div class="form-group">
-                                    <select class="select">
-                                        <option>Choose Category</option>
-                                        <option>Computers</option>
-                                    </select>
-                                </div>
-                            </div>
-                            <div class="col-lg-2 col-sm-6 col-12">
-                                <div class="form-group">
-                                    <select class="select">
-                                        <option>Choose Sub Category</option>
-                                        <option>Fruits</option>
-                                    </select>
-                                </div>
-                            </div>
-                            <div class="col-lg-2 col-sm-6 col-12">
-                                <div class="form-group">
-                                    <select class="select">
-                                        <option>Choose Sub Brand</option>
-                                        <option>Iphone</option>
-                                    </select>
-                                </div>
-                            </div>
-                            <div class="col-lg-1 col-sm-6 col-12 ms-auto">
-                                <div class="form-group">
-                                    <a class="btn btn-filters ms-auto"><img src="~/img/icons/search-whites.svg" alt="img"></a>
-                                </div>
-                            </div>
-                        </div>
-                    </div>
-                </div>
+               
 
                 <div class="table-responsive">
                     <table class="table  datanew">
@@ -102,7 +63,7 @@
                                     <a href="javascript:void(0);">@item.CategoryName</a>
                                 </td>
                                 <td><textarea disabled>@item.CategoryDescription</textarea></td>
-                                <td>Admin</td>
+                                <td>@item.CreatedBy</td>
                                 <td>
                                     <a href="@Url.Action("Details", "Categories", new { id = item.Id })" class="me-3">
                                         <img src="~/img/icons/eye.svg" alt="Details" />

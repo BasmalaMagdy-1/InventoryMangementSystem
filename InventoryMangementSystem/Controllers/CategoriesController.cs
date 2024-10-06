@@ -46,7 +46,9 @@ namespace InventoryMangementSystem.Controllers
                     ViewBag.ExistsError = "Category Already exists";
                     return View();
                 }
-               await  _repository.AddAsync(item);
+                item.CreatedBy = User.Identity.Name;
+                item.CreatedDate = DateTime.Now;
+                await  _repository.AddAsync(item);
                 return RedirectToAction(nameof(Index));
             }
             catch

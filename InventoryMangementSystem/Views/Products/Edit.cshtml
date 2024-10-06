@@ -52,6 +52,7 @@
                         <div class="form-group">
                         <label asp-for="StockQuantity" class="control-label">Quantity</label>
                         <input asp-for="StockQuantity" class="form-control" />
+                        <input name="oldQTY" class="form-control" hidden/>
                         <span asp-validation-for="StockQuantity" class="text-danger"></span>
                         </div>
                     </div>
@@ -73,10 +74,9 @@
                         <div class="mt-2">
                             <img id="output" src="@Model.ProductImage" width="30%" />
                         </div>
-
-                   
+                            <input asp-for="CreatedBy" class="form-control" hidden />
+                            <input asp-for="CreatedDate" class="form-control" hidden />
                     <div class="col-lg-12">
-
                         <input type="submit" value="Update" class="btn btn-submit me-2" />
                     <a asp-action="Index" class="btn btn-cancel">Cancel</a>
                     </div>

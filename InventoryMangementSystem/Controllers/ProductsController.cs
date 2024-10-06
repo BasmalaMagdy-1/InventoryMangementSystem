@@ -2,27 +2,32 @@
 using InventoryMangementSystemEntities.Models;
 using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Http;
+using Microsoft.AspNetCore.Identity;
+using Microsoft.AspNetCore.Identity.UI.Services;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.EntityFrameworkCore;
 
 
 namespace InventoryMangementSystem.Controllers
 {
+    // must be logged in to access this controller
+    [Authorize]
     public class ProductsController : Controller
     {
        private  IGenericRepository<Product> _ProductRepository;
         private IGenericRepository<Category> _CategoryRepository;
         private IGenericRepository<Supplier> _SupplierRepository;
-
+        private IGenericRepository<StockLevel> _StockLevelRepository;
         private IWebHostEnvironment _environment;
         private IUploudFile _uploadFile;
-        public ProductsController(IGenericRepository<Product> ProductRepository, IGenericRepository<Category> categoryRepository, IWebHostEnvironment environment, IUploudFile uploadFile, IGenericRepository<Supplier> supplierRepository)
+        public ProductsController(IGenericRepository<Product> ProductRepository, IGenericRepository<Category> categoryRepository, IWebHostEnvironment environment, IUploudFile uploadFile, IGenericRepository<Supplier> supplierRepository, IGenericRepository<StockLevel> stockLevelRepository)
         {
             _ProductRepository = ProductRepository;
             _CategoryRepository = categoryRepository;
             _environment = environment;
             _uploadFile = uploadFile;
             _SupplierRepository = supplierRepository;
+            _StockLevelRepository = stockLevelRepository;
         }
         // GET: ProductsController
         public async Task<ActionResult> Index()
@@ -92,8 +97,17 @@ namespace InventoryMangementSystem.Controllers
                     string FilePath = await _uploadFile.UploadFileAsync("\\img\\product\\", item.ImageFile);
                     item.ProductImage = FilePath;
                 }
-
+                item.CreatedBy = User.Identity.Name;
+                item.CreatedDate = DateTime.Now;
                 await _ProductRepository.AddAsync(item);
+                StockLevel stockLevel = new StockLevel
+                {
+                    ProductId = item.Id,
+                    QuantityChange = item.StockQuantity,
+                    ChangeDate = DateTime.Now,
+                    ChangeType = "Initial Stock"
+                };
+                await _StockLevelRepository.AddAsync(stockLevel);
                 return RedirectToAction(nameof(Index));
             }
             catch
@@ -114,7 +128,7 @@ namespace InventoryMangementSystem.Controllers
 
         // POST: ProductsController/Edit/5
         [HttpPost]
-        public async Task<ActionResult> Edit(int id, Product item)
+        public async Task<ActionResult> Edit(int id, Product item,int oldQTY)
         {
             try
             {
@@ -123,15 +137,26 @@ namespace InventoryMangementSystem.Controllers
                     string FilePath = await _uploadFile.UploadFileAsync("\\img\\product\\", item.ImageFile);
                     item.ProductImage = FilePath;
                 }
-                
-
                 await _ProductRepository.UpdateAsync(item);
+                int stockChange = item.StockQuantity - oldQTY;
+                if(stockChange != 0)
+                {
+                    StockLevel stockLevel = new StockLevel
+                    {
+                        ProductId = item.Id,
+                        QuantityChange = stockChange,
+                        ChangeDate = DateTime.Now,
+                        ChangeType = stockChange > 0 ? "add" : "remove"
+                    };
+                    await _StockLevelRepository.AddAsync(stockLevel);
+                }
                 return RedirectToAction(nameof(Index));
             }
             catch
             {
                 return View();
             }
+           
         }
 
         // GET: ProductsController/Delete/5
@@ -157,8 +182,50 @@ namespace InventoryMangementSystem.Controllers
                 return View();
             }
         }
-    
-        
 
-}
+        // low stock items
+
+        public async Task<ActionResult> LowStock()
+        {
+            var products = await _ProductRepository.GetAllAsync(p => p.StockQuantity <= p.LowStockThreshold && p.StockQuantity > 0, inculdes: new[] { "category", "supplier" });
+            return View("ProductsList", products);
+        }
+        public async Task<ActionResult> OutOfStock()
+        {
+            var products = await _ProductRepository.GetAllAsync(p => p.StockQuantity == 0, inculdes: new[] { "category", "supplier" });
+            return View("ProductsList", products);
+        }
+        //for update the product stock (add or remove)
+        public async Task<ActionResult> UpdateStock()
+        {
+            ViewBag.ProductList = await _ProductRepository.GetAllAsync();
+            return View();
+        }
+        [HttpPost]
+        public async Task<ActionResult> UpdateStock(int id, int quantity, string type)
+        {
+            try
+            {
+                var product = await _ProductRepository.GetByIdAsync(id);
+                product.StockQuantity += type == "add" ? quantity : -quantity;
+                StockLevel stockLevel = new StockLevel
+                {
+                    ProductId = id,
+                    QuantityChange = type == "add" ? quantity : -quantity,
+                    ChangeDate = DateTime.Now,
+                    ChangeType = type
+                };
+                await _StockLevelRepository.AddAsync(stockLevel);
+                await _ProductRepository.UpdateAsync(product);
+                return RedirectToAction(nameof(Index));
+            }
+            catch
+            {
+                return View();
+            }
+        }
+
+
+    }
+
 }

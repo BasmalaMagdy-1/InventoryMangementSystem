@@ -9,10 +9,11 @@ namespace InventoryMangementSystemEntities.ViewModels.DashBoard
 {
     public class DashboardViewModel
     {
-        public int TotalProducts { get; set; }
         public int TotalSuppliers { get; set; }
-        public int TotalCategories { get; set; }
-        public int TotalLowStockProducts { get; set; }
-       
+        public int outOfStockProducts { get; set; }
+        public int LowStockProducts { get; set; }
+        public IEnumerable<Product> ProductsStockLevels { get; set; } = Enumerable.Empty<Product>();
+        public IEnumerable<Product> RecentlyAddedProducts { get; set; } = Enumerable.Empty<Product>();
+
     }
 }
