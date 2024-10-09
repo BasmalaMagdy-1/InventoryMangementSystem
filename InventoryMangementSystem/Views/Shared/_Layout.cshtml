@@ -148,13 +148,16 @@
                                 <li><a href="supplierreport.html">Supplier Report</a></li>
                             </ul>
                         </li>
-                        <li class="submenu">
-                            <a href="javascript:void(0);"><img src="~/img/icons/users1.svg" alt="img"><span> Users</span> <span class="menu-arrow"></span></a>
-                            <ul>
-                                <li><a href="newuser.html">New User </a></li>
-                                <li><a href="userlists.html">Users List</a></li>
-                            </ul>
-                        </li>
+                            @if (User.IsInRole("Administrator") && User.Identity.IsAuthenticated)
+                            {
+                                <li class="submenu">
+                                    <a href="javascript:void(0);"><img src="~/img/icons/users1.svg" alt="img"><span> Users</span> <span class="menu-arrow"></span></a>
+                                    <ul>
+                                        <li><a asp-area="" asp-controller="Administration" asp-action="NewUser">New User</a></li>
+                                        <li><a asp-area="" asp-controller="Administration" asp-action="GetAllUsers">Users List</a></li>
+                                    </ul>
+                                </li>
+                            }
                     </ul>
                 </div>
             </div>

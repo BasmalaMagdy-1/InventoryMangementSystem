@@ -1,0 +1,99 @@
+﻿@model IEnumerable<InventoryMangementSystemEntities.ViewModels.Administration.UserViewModel>
+
+@{
+    ViewData["Title"] = "GetAllUsers";
+}
+
+<div class="page-wrapper">
+    <div class="content">
+        <div class="page-header">
+            <div class="page-title">
+                <h4>User List</h4>
+                <h6>Manage your User</h6>
+            </div>
+            <div class="page-btn">
+                <a asp-area="" asp-controller="Administration" asp-action="NewUser" class="btn btn-added"><img src="~/img/icons/plus.svg" alt="img">Add User</a>
+            </div>
+        </div>
+
+        <div class="card">
+            <div class="card-body">
+                <div class="table-top">
+                    <div class="search-set">
+                        <div class="search-input">
+                            <a class="btn btn-searchset"><img src="~/img/icons/search-white.svg" alt="img"></a>
+                        </div>
+                    </div>
+                </div>
+
+                <div class="table-responsive">
+                    <table class="table  datanew">
+                        <thead>
+                            <tr>
+                                <th>
+                                    <label class="checkboxs">
+                                        <input type="checkbox" id="select-all">
+                                        <span class="checkmarks"></span>
+                                    </label>
+                                </th>
+                                <th>User name </th>
+                                <th>email</th>
+                                <th>Role</th>
+                                <th>Action</th>
+                            </tr>
+                        </thead>
+                        <tbody>
+                            @foreach (var item in Model)
+                            {
+                                <tr>
+                                    <td>
+                                    <label class="checkboxs">
+                                        <input type="checkbox">
+                                        <span class="checkmarks"></span>
+                                    </label>
+                                </td>
+                                <td>@item.UserName</td>
+                                <td>@item.Email</td>
+                                <td>@string.Join(",", item.UserRoles)</td>
+                                <td>
+                                        <a asp-area="" asp-controller="Administration" asp-action="ManageRoles" asp-route-userId="@item.Id" class="me-3">
+                                        <img src="~/img/icons/edit.svg" alt="img">
+                                    </a>
+                                        <a class="me-3 " href="javascript:void(0);" onclick="confirmDelete('@item.Id');">
+                                            <img src="~/img/icons/delete.svg" alt="img">
+                                        </a>
+
+
+                                </td>
+                            </tr>}
+                        </tbody>
+                    </table>
+                </div>
+            </div>
+        </div>
+
+    </div>
+</div>
+
+
+
+@section Scripts{
+    <script>
+        function confirmDelete(userId) {
+            Swal.fire({
+                title: 'Are you sure you want to delete this user?',
+                text: "You won't be able to revert this!",
+                icon: 'warning',
+                showCancelButton: true,
+                confirmButtonColor: '#3085d6',
+                cancelButtonColor: '#d33',
+                confirmButtonText: 'Yes, delete it!'
+            }).then((result) => {
+                if (result.isConfirmed) {
+                    window.location.href = '/Administration/DeleteUser?userId=' + userId;
+                }
+            });
+        }
+    </script>
+
+}

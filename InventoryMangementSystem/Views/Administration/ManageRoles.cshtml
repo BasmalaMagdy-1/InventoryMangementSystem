@@ -1,0 +1,60 @@
+﻿@model UserRolesViewModel
+@{
+	ViewData["Title"] = "Manage Roles";
+}
+<div class="page-wrapper">
+<div class="content">
+<div class="page-header">
+<div class="page-title">
+<h4>User Management</h4>
+<h6>Update Roles</h6>
+</div>
+</div>
+<form asp-action="UpdateRole" method="post">
+
+			<div class="card rounded shadow">
+	<div class="card-header">
+			<input asp-for="UserId" class = "form-control"hidden>
+					<div class="form-group">
+						<label asp-for="UserName" class="control-label">User</label>
+					<input asp-for="UserName" class="form-control" disabled/>
+					<span asp-validation-for="UserName" class="text-danger"></span>
+					</div>
+					<div class="form-group">
+						<label asp-for="UserEmail" class="control-label">Email</label>
+						<input asp-for="UserEmail" class="form-control" disabled />
+						<span asp-validation-for="UserEmail" class="text-danger"></span>
+					</div>
+
+					<div class="form-group">
+						<label asp-for="UserPhoneNumber" class="control-label">Phone</label>
+						<input asp-for="UserPhoneNumber" class="form-control" disabled />
+						<span asp-validation-for="UserPhoneNumber" class="text-danger"></span>
+					</div>
+		
+			
+	</div>
+<div class="card-body">
+					<label>Roles</label>
+	<div class="rounded shadow p-4">
+			@for (int i = 0;i < Model.UserRoles.Count;i++)
+			{
+					<input asp-for="@Model.UserRoles[i].RoleName" class="form-control" hidden>
+				<div class="form-check">
+					<input asp-for = "UserRoles[i].IsSelected">
+					<label asp-for = "UserRoles[i].IsSelected">@Model.UserRoles[i].RoleName</label>
+
+				</div>
+			}
+	</div>
+</div>
+<div class="card-footer">
+	<div class="form-group float-end">
+						<input type="submit" value="save" class="btn btn-submit me-2" />
+		<a asp-action="GetAllUsers" asp-controller="Administration" class="btn btn-cancel">Back to List</a>
+	</div>
+</div>
+</div>
+</form>
+</div>
+</div>

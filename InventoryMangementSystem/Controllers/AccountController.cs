@@ -18,6 +18,7 @@ namespace InventoryMangementSystem.Controllers
 
         public IActionResult Register()
         {
+            ViewBag.Roles = TempData["Roles"];
             return View();
         }
         [HttpPost]
@@ -29,14 +30,21 @@ namespace InventoryMangementSystem.Controllers
                 {
                     UserName = model.UserName,
                     Email = model.Email,
-                    EmailConfirmed = true
+                    PhoneNumber = model.PhoneNumber,
+                    PhoneNumberConfirmed = true,
+                    EmailConfirmed = true,
+                    
                 };
                 var result = await _userManager.CreateAsync(newuse, model.Password);
                 if (result.Succeeded)
                 {
-                    await _userManager.AddToRoleAsync(newuse, "Staff");
-                    await _signInManager.SignInAsync(newuse, false);
-                    return RedirectToAction("Index", "DashBoard");
+                    if (model.Roles != null)
+                    {
+                        var roles = await _userManager.GetRolesAsync(newuse);
+                        await _userManager.RemoveFromRolesAsync(newuse, roles);
+                        await _userManager.AddToRolesAsync(newuse, model.Roles);
+                    }
+                    return RedirectToAction("GetAllUsers", "Administration");
                 }
                 else
                 {
