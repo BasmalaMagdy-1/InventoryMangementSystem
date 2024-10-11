@@ -33,9 +33,7 @@ namespace InventoryMangementSystem.Controllers
         public async Task<ActionResult> Index()
         {
             var products = await _ProductRepository.GetAllAsync(inculdes: new[] { "category", "supplier" });
-
-         
-
+            ViewData["filter"] = "All Products";
             return View("ProductsList", products);
         }
         public async Task<ActionResult> Filter(string filter)
@@ -188,11 +186,13 @@ namespace InventoryMangementSystem.Controllers
         public async Task<ActionResult> LowStock()
         {
             var products = await _ProductRepository.GetAllAsync(p => p.StockQuantity <= p.LowStockThreshold && p.StockQuantity > 0, inculdes: new[] { "category", "supplier" });
+            ViewData["filter"] = "low stock products";
             return View("ProductsList", products);
         }
         public async Task<ActionResult> OutOfStock()
         {
             var products = await _ProductRepository.GetAllAsync(p => p.StockQuantity == 0, inculdes: new[] { "category", "supplier" });
+            ViewData["filter"] = "out of stock products";
             return View("ProductsList", products);
         }
         //for update the product stock (add or remove)
