@@ -1,10 +1,13 @@
 ﻿using InventoryMangementSystem.Intefaces;
 using InventoryMangementSystemEntities.Models;
+using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Http;
 using Microsoft.AspNetCore.Mvc;
 
 namespace InventoryMangementSystem.Controllers
 {
+    [Authorize]
+
     public class StockLevelsController : Controller
     {
         private IGenericRepository<StockLevel> _stockLevelRepository;

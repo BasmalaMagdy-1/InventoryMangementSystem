@@ -1,11 +1,14 @@
 ﻿using InventoryMangementSystem.Intefaces;
 using InventoryMangementSystemEntities.Models;
+using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Http;
 using Microsoft.AspNetCore.Mvc;
 using NuGet.Protocol.Core.Types;
 
 namespace InventoryMangementSystem.Controllers
 {
+    [Authorize]
+
     public class SuppliersController : Controller
     {
         private IGenericRepository<Supplier> _SupplierRepository;
