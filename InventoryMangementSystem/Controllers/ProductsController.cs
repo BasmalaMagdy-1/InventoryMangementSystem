@@ -29,6 +29,33 @@ namespace InventoryMangementSystem.Controllers
             _SupplierRepository = supplierRepository;
             _StockLevelRepository = stockLevelRepository;
         }
+
+        [Authorize(Roles = "Administrator")]
+        public async Task<ActionResult> Report()
+        {
+            var products = await _ProductRepository.GetAllAsync(inculdes: new[] { "category", "supplier" });
+            var stockLevels = await _StockLevelRepository.GetAllAsync();
+
+            var quantityChanges = stockLevels
+                .Where(sl => sl.QuantityChange < 0 && sl.ChangeType == "remove")
+                .ToDictionary(sl => sl.ProductId, sl => sl.QuantityChange);
+            var result = new List<dynamic>(); // Using dynamic type for flexibility
+
+            var removedProducts = products
+                .Where(p => quantityChanges.ContainsKey(p.Id))
+                .Select(p => new
+                {
+                    Product = p,
+                    QuantityChanged = quantityChanges[p.Id]
+                }).ToList();
+
+            removedProducts.ForEach(p => result.Add(p));
+            
+            ViewData["filter"] = "All Products";
+            return View("PurchaseReport", result);
+
+        }
+
         // GET: ProductsController
         public async Task<ActionResult> Index()
         {

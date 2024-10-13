@@ -22,6 +22,7 @@ namespace InventoryMangementSystem.Controllers
         }
 
         // GET: SuppliersController/Report
+        [Authorize(Roles = "Administrator")]
         public async Task<ActionResult> Report()
         {
             try
@@ -83,6 +84,8 @@ namespace InventoryMangementSystem.Controllers
         }
 
         // GET: SuppliersController/Create
+        [Authorize(Roles = "Administrator")]
+
         public ActionResult Create()
         {
             return View("AddNewSupplier");
